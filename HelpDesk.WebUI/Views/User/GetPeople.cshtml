@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HelpDesk.WebUI.Entities.User>
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        @if (HttpContext.Current.User.IsInRole("Admin"))
+            {
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.ActionLink(item.Name, "Edit", "User", new { id = item.Id })
+
+            </td>
+            @if (HttpContext.Current.User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+    </tbody>
+

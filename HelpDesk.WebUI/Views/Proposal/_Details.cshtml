@@ -1,0 +1,11 @@
+﻿@model HelpDesk.WebUI.Entities.Proposal
+
+<div>
+    <hr />
+    <p>For details: Proposal #@Html.DisplayFor(model => model.Id)</p>
+    <p>Description: @Html.DisplayFor(model => model.Description)</p>  
+    <p>Room #@Html.DisplayFor(m=>m.Activ.RoomNumber)</p>
+    <p>Category: @Html.DisplayFor(m=>m.Category.Name)</p>
+    <p>Comment: @Html.DisplayFor(m=>m.Comment)</p>
+</div>
+

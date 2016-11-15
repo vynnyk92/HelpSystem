@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Proposal>
+@using HelpDesk.WebUI.Entities;
+@{
+    ViewBag.Title = "Proposal list";
+    int i = 0; //счетчик
+}
+<script src="~/Scripts/HelpDesk.js"></script>
+<h2>Proposal list</h2>
+<p>Total unhelded proposals: @(Model.Count<Proposal>())</p>
+<table>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td><b>@i</b></td>
+            <td>
+                @if (item.Status == (int)ProposalStatus.Opened)
+                {
+                    <img src="../../Content/pictures/status1.png" title="Proposal opened" class="tdImage" />
+                }
+                else if (item.Status == (int)ProposalStatus.Distributed)
+                {
+                    <img src="../../Content/pictures/status2.png" title="Proposal Distributed" class="tdImage" />
+                }
+                else if (item.Status == (int)ProposalStatus.Processing)
+                {
+                    <img src="../../Content/pictures/status3.png" title="Proposal зкщсуііштп" class="tdImage" />
+                }
+                else if (item.Status == (int)ProposalStatus.Checking)
+                {
+                    <img src="../../Content/pictures/status4.png" title="Proposal checking" class="tdImage" />
+                }
+            </td>
+            <td>
+                @if (item.Priority == (int)ProposalPriority.Low)
+                {
+                    <img src="../../Content/pictures/prior1.png" title="Low priority" class="tdImage" />
+                }
+                else if (item.Priority == (int)ProposalPriority.Medium)
+                {
+                    <img src="../../Content/pictures/prior2.png" title="Medium priority" class="tdImage" />
+                }
+                else if (item.Priority == (int)ProposalPriority.High)
+                {
+                    <img src="../../Content/pictures/prior3.png" title="High priority" class="tdImage" />
+                }
+                else if (item.Priority == (int)ProposalPriority.Critical)
+                {
+                    <img src="../../Content/pictures/prior4.png" title="Critical priority" class="tdImage" />
+                }
+            </td>
+            <td>
+                @if (item.File != null)
+                {
+                    <a href="/Request/Download/@item.Id"><img src="../../Content/pictures/filey.png" title='@item.File' class="tdImage" /></a>
+                }
+                else
+                {
+                    <img src="../../Content/pictures/filen.png" title="File is absent" class="tdImage" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lifecycle.Opened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activ.RoomNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                <div>
+                    <a class="openDialog" data-dialog-id="infoDialog" data-dialog-title="Proposal description"
+                       href="/Request/Details/@item.Id">
+                        <img src="../../Content/pictures/info.png" class="tdImage" title="Описание заявки" />
+                    </a>
+                </div>
+            </td>
+            @if ((ViewBag.Executors as SelectList).Count() > 0)
+            {
+                using (Html.BeginForm())
+                {
+                    <td>
+                        @Html.Hidden("requestId", item.Id)
+                        @Html.DropDownList("executorId", ViewBag.Executors as SelectList)
+                    </td>
+                    <td>
+                        <input type="submit" value="Administrate" />
+                    </td>
+                }
+            }
+            else
+            {
+                <td>
+                    Executors are absent in the DB
+                </td>
+            }
+        </tr>
+    }
+</table>

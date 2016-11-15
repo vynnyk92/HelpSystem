@@ -1,0 +1,44 @@
+﻿@model IEnumerable<HelpDesk.WebUI.Entities.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Here are all the users for testing App with different kind of users!</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Id)</td>
+            <td>@Html.DisplayNameFor(model => model.Name)</td>
+            <td>@Html.DisplayNameFor(model => model.Login)</td>
+            <td>@Html.DisplayNameFor(model => model.Password)</td>
+            <td>@Html.DisplayNameFor(model => model.Position)</td>
+            <td>@Html.DisplayNameFor(model => model.Role)</td>
+            <td>@Html.DisplayNameFor(model => model.Department)</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Login</td>
+            <td>@item.Password</td>
+            <td>@item.Position</td>
+            <td>@item.Role.Name</td>
+            <td>@item.Department.Name</td>
+        </tr>
+    }
+</table>
+<div>
+    <pre>
+This is educational project. Here is realized Board for sending Proposals with problems from different users of the small company.
+
+Proposal model is in the center of the whole system. Any proposal has few States of the Lifecycle from Begining untill problem Closing(Solution). 
+Any User can add proposal, its name, description, photo file, room and department of it's appearance. 
+Moderator find new Proposals and distribute it for allowable Executors.
+Executors investigate directed proposal and during its solution change the responsive proposal status.
+At the top of the manufacture Pyramid is the administrator, who can add new user from all departments and  change its roles.
+
+</pre>
+</div>

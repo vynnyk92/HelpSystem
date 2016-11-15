@@ -1,0 +1,103 @@
+﻿@model IEnumerable<HelpDesk.Domain.Entities.Proposal>
+    @using HelpDesk.WebUI.Entities;
+@{
+    ViewBag.Title = "Index";
+    int i = 0;
+}
+<script src="~/Scripts/HelpDesk.js"></script>
+<style>
+    .tdImage{
+    width:30px;
+    height:25px;
+}
+</style>
+<h2>List of proposals</h2>
+<p>Total proposals: @(Model.Count<Proposal>())</p>
+
+<table class="table">
+   @foreach (var item in Model)
+   {
+       i++;
+    <tr>
+        <td><b>@i</b></td>
+        <td>
+            @if (item.Status == (int)ProposalStatus.Opened)
+            {
+                <img src="~/Content/pictures/status1.png" title="Proposal opened" class="tdImage" />
+            }
+            else if (item.Status == (int)ProposalStatus.Distributed)
+            {
+                <img src="~/Content/pictures/status2.png" title="Proposal distributing" class="tdImage" />
+            }
+            else if (item.Status == (int)ProposalStatus.Processing)
+            {
+                <img src="~/Content/pictures/status3.png" title="Proposal in progress" class="tdImage" />
+            }
+            else if (item.Status == (int)ProposalStatus.Checking)
+            {
+                <img src="~/Content/pictures/status4.png" title="Proposal in progress" class="tdImage" />
+            }
+            else if (item.Status == (int)ProposalStatus.Closed)
+            {
+                <img src="~/Content/pictures/status5.png" title="Proposal in progress" class="tdImage" />
+            }
+        </td>
+        <td>
+            @if (item.Priority == (int)ProposalPriority.Low)
+            {
+                <img src="~/Content/pictures/prior1.png" title="Low priority" class="tdImage" />
+            }
+            else if (item.Priority == (int)ProposalPriority.Medium)
+            {
+                <img src="~/Content/pictures/prior2.png" title="Medium priority" class="tdImage" />
+            }
+            else if (item.Priority == (int)ProposalPriority.High)
+            {
+                <img src="~/Content/pictures/prior3.png" title="High priority" class="tdImage" />
+            }
+            else if (item.Priority == (int)ProposalPriority.Critical)
+            {
+                <img src="~/Content/pictures/prior4.png" title="Critical priority" class="tdImage" />
+            }
+        </td>
+        <td>
+            @if (item.File != null)
+            {
+                <a href="~/Proposal/Download/@item.Id"><img src="~/Content/pictures/filey.png" alt="@item.File" class="tdImage" /></a>
+            }
+            else
+            {
+                <img src="~/Content/pictures/filen.png" alt="Without file picture" class="tdImage" />
+            }
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.Lifecycle.Opened)</td>
+        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <td>
+        <div>
+            <a class="openDialog" data-dialog-id="infoDialog" data-dialog-title="Proposal Description"
+               href="Proposal/Details/@item.Id">
+                <img src="~/Content/pictures/info.png" class="tdImage" title="Proposal info" />
+            </a>
+        </div>
+        </td>
+        <td>
+            <div>
+                <a class="openDialog" data-dialog-id="executorDialog" data-dialog-title="Proposal executor"
+                   href="Proposal/Executor/@item.ExecutorId">
+                    <img src="~/Content/pictures/executor.png" class="tdImage" title="Proposal executor" />
+                </a>
+            </div>
+        </td>
+        <td>
+            <div>
+                <a class="openDialog" data-dialog-id="lifecycleDialog" data-dialog-title="Proposal Lifecycle"
+                   href="Proposal/Lifecycle/@item.LifecycleId">
+                    <img src="~/Content/pictures/lifecycle.png" class="tdImage" title="Proposal Lifecycle" />
+                </a>
+            </div>
+            </td>
+    </tr>
+   }
+
+
+</table>

@@ -1,0 +1,11 @@
+﻿@model HelpDesk.WebUI.Entities.Lifecycle
+
+<div>
+    <p><b>Proposal #@Html.DisplayFor(m=>m.Id)</b></p>
+    <p>Lifecycle</p>
+    <p>Opened: @Html.DisplayFor(m=>m.Opened)</p>
+    <p>Distributed: @Html.DisplayFor(m => m.Distributed)</p>
+    <p>In progress: @Html.DisplayFor(m => m.Processing)</p>
+    <p>On checkin: @Html.DisplayFor(m => m.Checking)</p>
+    <p>Closed: @Html.DisplayFor(m => m.Closed)</p>
+</div>
